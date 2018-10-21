@@ -14,3 +14,4 @@ The main aim of this project is to shift the above-mentioned power from conglome
 - IPFS
 - Ethereum
 - Python
+- JavaScript
