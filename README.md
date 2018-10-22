@@ -1,4 +1,4 @@
-# Decentralized Video Sharing Platfrom
+# Decentralized Video Sharing Platform
 
 ### Introduction
 
