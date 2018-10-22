@@ -2,6 +2,6 @@
 	{% csrf_token %}
 	<input type="file" name="file">
 	<input type="submit" value='Upload'>
-	<img src='{{url}}' name="uploaded_object">
+	<video src='{{url}}' name="uploaded_object"></video>
 	<div>{{fileHash}}</div>
 </form>
