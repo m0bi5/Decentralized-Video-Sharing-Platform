@@ -1,10 +1,10 @@
-
+import platform
 from subprocess import Popen,PIPE
 import re
 
 #Function serves as a CLI to access the ipfs.exe
 def terminal(command):
-	result = Popen(args=command,stdout = PIPE)
+	result = Popen(args=command,stdout = PIPE,shell=True)
 	result.wait()
 	return result.stdout.read().decode("utf-8") 
 	
@@ -21,6 +21,8 @@ def getHash(string):
 
 #Function used to upload a file to an IPFS node
 def fileUpload(path):
+	path=path.replace('\\','\\\\')
+	print('Uploading from ',path)
 	command=['ipfs','add',path]
 	output=terminal(command)
 	return getHash(output)
