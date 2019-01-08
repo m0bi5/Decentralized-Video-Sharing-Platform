@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Uploads{% endblock %}
+
+
+{% block javascript %}
+
+    <script type="text/javascript">
+  $('.deleter').click(function(){
+    if (confirm('Are you sure you want to delete this video?')==true){
+      $.ajax({
+        type: "GET",
+        url: "{% url 'delete_video' %}",
+        data: {
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+          'video': $(this).attr('id')
+        },
+        success: function(message) {
+          location.reload();
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    }
+  });
+    </script>
+
+{% endblock %}
+
+{% block breadcrumb %}
+  <br>
+  <h2 class="row justify-content-center">Uploads</h2>
+  <br>
+{% endblock %}
+
+
+{% block content %}
+<div class="row justify-content-center">
+  {% if not videos %}
+    <div class="card w-50">
+      <div class="card-body">
+        <div class="container">
+          No uploads found<br>
+          <a href="{% url 'upload' %}">Click here to upload a video</a>
+        </div>
+      </div>
+    </div>    
+  {% endif %}
+  {% for video in videos %}
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+              <div class="col-sm-5">
+                <video width="400" controls>
+                <source src="http://localhost:8080/ipfs/{{video.fileHash}}" type="video/mp4">
+                Your browser does not support HTML5 video.
+                </video>
+              </div>
+              <div class="col-sm-6">
+                <h4>{{video.title}}</h4>
+                <hr>
+                Tags:
+                <br>
+                {% for tag in video.tags %}
+                  <button type="button" class="btn btn-default btn-xs">{{tag}}</button>
+                {% endfor %}
+              </div>
+
+              <div class="col-sm-1">
+                <a id='{{video.fileHash}}' type="button" class="deleter row justify-content-center btn btn-danger"><i class="text-white far fa-trash-alt"></i></a>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}
+

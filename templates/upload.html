@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload a video{% endblock %}
+
+{% block breadcrumb %}
+  <h2></h2>
+{% endblock %}
+
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          {% if fileHash %}
+            <h3 class="text-center card-title">Video uploaded!</h3>
+            <p>File can be referenced by the following hash : {{fileHash}}</p>
+            <p><a href="{% url 'myuploads' %}"></a></p>
+          {% else %}
+            <h3 class="text-center card-title">Upload a video</h3>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
+              <button type="submit" class="btn btn-primary btn-block">Upload</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
