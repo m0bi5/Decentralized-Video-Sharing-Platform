@@ -4,7 +4,7 @@ import sys
 import subprocess
 
 if __name__ == "__main__":
-    subprocess.Popen('ipfs daemon')
+    subprocess.Popen(['ipfs','daemon'])
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
     try:
         from django.core.management import execute_from_command_line
