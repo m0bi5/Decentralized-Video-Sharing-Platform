@@ -17,7 +17,7 @@ The main aim of this project is to shift the above-mentioned power from conglome
 
 -----
 
-###Running instructions
+### Running instructions
 
 Download the ipfs daemon from <a href='https://dist.ipfs.io/#go-ipfs'>here</a>
 
