@@ -18,8 +18,8 @@ def upload(request):
 			except:
 				print('Folder exists')
 			obj=UploadedFiles(user=request.user.username,file=request.FILES['file'],title=request.POST['title'],description=request.POST['description'],tags=request.POST['tags'])
-			path=str(os.path.join(path,obj.file.name))
 			obj.save()
+			path=str(os.path.join(path,obj.file.name))
 			obj.fileHash=ipfs.fileUpload(path)
 			os.system('rm "'+path+'"')
 			obj.save()
