@@ -60,7 +60,7 @@
                 </video>
               </div>
               <div class="col-sm-6">
-                <h4>{{video.title}}</h4>
+                <a href="{% url 'view_video' fileHash=video.fileHash %}"><h4>{{video.title}}</h4></a>
                 <hr>
                 Tags:
                 <br>

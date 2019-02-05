@@ -18,6 +18,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="col-sm-6 center-block">
+              <div class="input-group">
+                <input type="text" placeholder="Search Videos" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
             <div class="collapse navbar-collapse" id="mainMenu">
               {% if user.is_authenticated %}
                 <ul class="navbar-nav ml-auto">

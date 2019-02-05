@@ -29,8 +29,9 @@ INSTALLED_APPS = [
     'upload',
     'myuploads',
     'home',
+    'video'
 ]
-
+URI_WITH_GET_PARAMS=True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

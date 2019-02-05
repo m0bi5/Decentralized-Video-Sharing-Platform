@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Uploads{% endblock %}
+
+{% block content %}
+    {% if not e404 %}
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="container">
+            <div class="col-sm-12">
+                <video width="1000" controls>
+                <source src="http://localhost:8080/ipfs/{{video.fileHash}}" type="video/mp4">
+                Your browser does not support HTML5 video.
+                </video>
+                <div class='row'>
+                    <div class="col-sm-9">
+                        <h4>
+                            {{video.title}}
+                        </h4>
+                    </div>
+                    <div class="col-sm-3">
+                        <h3>{{video.views}}</h3> views
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-9">
+                        Uploaded by:
+                        <br>
+                        <span>{{video.user}}</span>
+                        <br>
+                        <button class='btn btn-primary'>Donate</button>
+                    </div>
+                    <div class="col-sm-3">
+                        Tags:
+                        <br>
+                        {% for tag in video.tags %}
+                        <button type="button" class="btn btn-default btn-xs">{{tag}}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr>
+                Description:
+                <br>
+                <span>{{video.description}}</span>
+              </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+        <h2>Error 404: Video not found</h2>
+    {% endif %}
+{% endblock %}
+
+
