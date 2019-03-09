@@ -36,11 +36,17 @@ ipfs init
 Install dependencies
 
 ```
-pip install -r requirements.txt
+pip install -r website/requirements.txt
 ```
 
 Run the django webserver
 
 ```
-python manage.py runserver
+python website/manage.py runserver
+```
+
+Run the blockchain webserver
+
+```
+python blockchain/blockchain.py 
 ```
