@@ -8,28 +8,30 @@
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     {% block stylesheet %}{% endblock %}
+
   </head>
-  <body>
+  <body onload="getBalance()">
     {% block body %}
-      <div class="wrapper">
+      <div>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
           <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">D - Tube</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="col-sm-6 center-block">
-              <div class="input-group">
-                <input type="text" placeholder="Search Videos" class="form-control">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Go!</button>
-                </span>
+            <form method="POST" action="{% url 'search' %}">
+              {% csrf_token %}
+              <div class="row" >              
+                <div class="col-sm-8"><input name='query' type="text" placeholder="Search Videos" class="form-control"></div>
+                <div class="col-sm-3"><input value="Go" class="btn btn-default" type="submit"></div>
               </div>
-            </div>
+            </form>
             <div class="collapse navbar-collapse" id="mainMenu">
               {% if user.is_authenticated %}
                 <ul class="navbar-nav ml-auto">
+                  
                   <li class="nav-item dropdown">
+                  
                     <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Hello {{ user.first_name }}
                     </a>
@@ -42,6 +44,12 @@
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{% url 'myuploads' %}">My Uploads</a>
                     </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                  
+                    <a class="nav-link" href="#">
+                      Balance : <span id="balance"></span> Ð
+                    </a>
                   </li>
                 </ul>
               {% else %}
@@ -61,12 +69,25 @@
           {% block content %}
           {% endblock %}
         </div>
-        <div class="push"></div>
       </div>
     {% endblock body %}
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block javascript %}{% endblock %}
+    {% block javascript %}
+    <script type="text/javascript">
+      function getBalance(){
+        {% if user.is_authenticated %}
+          $.ajax({
+              url: "{% url 'get_balance' %}",
+              context: document.body,
+              success: function(data){
+                $("#balance").html(data['amount'])
+              }
+          });
+        {% endif %}
+      }
+    </script>
+    {% endblock %}
   </body>
 </html>

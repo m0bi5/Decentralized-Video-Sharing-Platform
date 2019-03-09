@@ -6,14 +6,16 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
-from .forms import SignUpForm, UserInformationUpdateForm
+from .models import Balance
 
+from .forms import SignUpForm, UserInformationUpdateForm
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            Balance.objects.create(user_name=user.username)
             auth_login(request, user)
             return redirect('home')
     else:

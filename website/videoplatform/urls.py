@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^delete/$',myuploads_views.delete_video , name='delete_video'),
     url(r'^settings/account/$', accounts_views.UserUpdateView.as_view(), name='my_account'),
     url(r'^admin/', admin.site.urls),
+    url(r'^getBalance/',home_views.getBalance,name="get_balance"),
+    url(r'^search/',home_views.search,name="search"),
+    url(r'^donate/(?P<hash>Qm([a-z|A-Z|0-9])+)$',home_views.donate,name="donate"),
 ]

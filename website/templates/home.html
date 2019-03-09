@@ -1,1 +1,33 @@
 {% extends 'base.html' %}
+{% block content %}
+<br><br>
+<h2 class="text-center">D - Tube, Experience the Power of Decentralization</h2>
+<h6 class="text-center">Videos are stored using IPFS and transactions are stored on the Blockchain</h6>
+
+<h3>Most viewed videos</h3>
+<div class="row">
+{% for video in videos %}
+    <div class="card w-25">
+      <div class="card-body">
+        <div class="container">
+          
+              <div class>
+                <video width="220">
+                <source src="http://localhost:8080/ipfs/{{video.fileHash}}" type="video/mp4">
+                Your browser does not support HTML5 video.
+                </video>    
+                <a href="{% url 'view_video' fileHash=video.fileHash %}"><h5>{{video.title}}</h5></a>
+                
+               
+              </div>
+
+           
+
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+          </div>
+
+
+{% endblock content %}

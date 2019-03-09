@@ -4,12 +4,14 @@ from upload.models import UploadedFiles
 # Create your views here.
 def view_video(request,fileHash):
     video=UploadedFiles.objects.filter(fileHash=fileHash)
-    context={}
+
     if len(video)>0:
         video=video[0]
         video.views+=1
         video.save()
-        context={'video':video,'e404':False}
+        context={'donateable':True,'video':video,'e404':False}
+        if request.user.username==video.user:
+            context['donateable']=False
         video.tags=video.tags.split(',')
     else:
         context['e404']=True

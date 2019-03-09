@@ -4,6 +4,13 @@
 {% block title %}My Uploads{% endblock %}
 
 {% block content %}
+<br>
+{% if messages %}
+    {% for message in messages %}
+    
+      <div class="row alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
     {% if not e404 %}
     <div class="card w-100">
       <div class="card-body">
@@ -30,7 +37,23 @@
                         <br>
                         <span>{{video.user}}</span>
                         <br>
-                        <button class='btn btn-primary'>Donate</button>
+                        {% if donateable %}
+                        {{django.contrib.messages.context_processors.messages}}
+                        <div class="row">
+                            <form method="POST" action="{% url 'donate' video.fileHash %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <input hidden type="text" name="donate_to" value="{{video.user}}">
+                                        <input type="text" placeholder="Enter amount"  class="form-control" name="amount">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input value="Donate" type="submit" class='btn btn-primary'>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="col-sm-3">
                         Tags:

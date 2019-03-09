@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+
+
+{% block breadcrumb %}
+  <br>
+  <h2 class="row justify-content-center">Results</h2>
+  <br>
+{% endblock %}
+
+
+{% block content %}
+<div class="row justify-content-center">
+  {% if not videos %}
+    <div class="card w-50">
+      <div class="card-body">
+        <div class="container">
+          No results found<br>
+          <a href="{% url 'upload' %}">Click here to upload a video</a>
+        </div>
+      </div>
+    </div>    
+  {% endif %}
+  {% for video in videos %}
+    <div class="card w-100">
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+              <div class="col-sm-5">
+                <video width="400" controls>
+                <source src="http://localhost:8080/ipfs/{{video.fileHash}}" type="video/mp4">
+                Your browser does not support HTML5 video.
+                </video>
+              </div>
+              <div class="col-sm-6">
+                <a href="{% url 'view_video' fileHash=video.fileHash %}"><h4>{{video.title}}</h4></a>
+                <hr>
+                Tags:
+                <br>
+                {% for tag in video.tags %}
+                  <button type="button" class="btn btn-default btn-xs">{{tag}}</button>
+                {% endfor %}
+              </div>
+
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}
+
